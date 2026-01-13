@@ -1,0 +1,128 @@
+// ==========================================
+// csstextlib.scss  ｜ 单文件原子库
+// 编译： sass csstextlib.scss csstextlib.css --style=expanded
+// ==========================================
+
+// --------- 设计令牌 ---------
+$color-map: (
+  'red':#ff0000, 'light-red':#ff8888, 'deep-red':#880000,
+  'orange':#ff8800, 'yellow':#ffff00, 'light-yellow':#ffff88, 'deep-yellow':#888800,
+  'green':#00ff00, 'light-green':#90ee90, 'deep-green':#005000,
+  'blue':#0000ff, 'light-blue':#88ceff, 'deep-blue':#000080,
+  'purple':#800080, 'light-purple':#c370ff, 'deep-purple':#4b0082,
+  'pink':#ff88ff, 'deep-pink':#800080,
+  'gray':#808080, 'dark-gray':#333, 'light-gray':#ccc,
+  'black':#000, 'white':#fff
+);
+
+$font-sizes: ('no':0, 'psmall':2px, 'minimal':4px, 'vsmall':8px,
+              'small':12px, 'medium':16px, 'large':20px,
+              'xlarge':24px, 'xxlarge':32px, 'xxxlarge':40px);
+
+$opacity-steps: 0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100;
+
+$line-heights: ('small':1, 'medium':1.5, 'large':2);
+$letter-spacing: ('small':-0.5px, 'large':2px);
+$word-spacing: ('small':-1px, 'large':4px);
+
+// --------- 循环生成颜色 + 透明度 + 字号 + 行高 + 字距/词距 ---------
+@each $name,$color in $color-map{
+  .text-color-#{$name}{color:$color}
+  .text-highlight-#{$name}{
+    background-color:$color;
+    @if $name==black{color:white}
+  }
+}
+@each $step in $opacity-steps{
+  .text-opacity-#{$step}{opacity:$step*0.01}
+}
+@each $key,$size in $font-sizes{
+  .text-size-#{$key}{font-size:$size}
+}
+@each $key,$h in $line-heights{
+  .text-line-height-#{$key}{line-height:$h}
+}
+@each $key,$val in $letter-spacing{
+  .text-letter-spacing-#{$key}{letter-spacing:$val}
+}
+@each $key,$val in $word-spacing{
+  .text-word-spacing-#{$key}{word-spacing:$val}
+}
+
+// --------- 一次性工具类 ---------
+.text-bold{font-weight:bold}
+.text-italic{font-style:italic}
+.text-underline,.text-decoration-underline{text-decoration:underline}
+.text-line-through,.text-strikethrough,.text-decoration-line-through{text-decoration:line-through}
+.text-decoration-overline{text-decoration:overline}
+.text-decoration-blink{text-decoration:blink}
+.text-decoration-none{text-decoration:none}
+.text-uppercase{text-transform:uppercase}
+.text-lowercase{text-transform:lowercase}
+.text-capitalize{text-transform:capitalize}
+.text-align-left{text-align:left}
+.text-align-center{text-align:center}
+.text-align-right{text-align:right}
+.text-align-justify{text-align:justify}
+.text-align-justify-last-line{text-align:justify;text-align-last:justify}
+.text-align-top{vertical-align:top}
+.text-align-middle{vertical-align:middle}
+.text-align-bottom{vertical-align:bottom}
+.text-break-word{word-wrap:break-word}
+.text-direction-rtl{direction:rtl}
+.text-direction-ltr{direction:ltr}
+.text-overflow-ellipsis{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.text-indent-small{text-indent:1em}
+.text-indent-large{text-indent:2em}
+.text-shadow{text-shadow:1px 1px 2px rgba(0,0,0,.5)}
+.text-responsive{
+  font-size:clamp(12px,1vw,24px)
+}
+
+// --------- 字体族 ---------
+.text-font-serif{font-family:serif}
+.text-font-sans-serif{font-family:sans-serif}
+.text-font-monospace{font-family:monospace}
+.text-font-system-ui{font-family:system-ui}
+.text-font-ui-serif{font-family:ui-serif}
+.text-font-ui-sans-serif{font-family:ui-sans-serif}
+.text-font-ui-monospace{font-family:ui-monospace}
+.text-font-ui-rounded{font-family:ui-rounded}
+
+// --------- 暗色模式（跟随系统） ---------
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#000;--card:#1d1d1f;--text:#f5f5f7;--sub:#a1a1a6;--border:#2c2c2e;
+  }
+  body{background:var(--bg);color:var(--text)}
+  .text-highlight-yellow{background:#443300}
+  .text-highlight-red{background:#440000}
+  // 任意暗色覆盖写下面
+}
+
+// --------- 响应式隐藏 / 显示 ---------
+.text-hide-xs{@media(max-width:575px){display:none}}
+.text-hide-sm{@media(max-width:767px){display:none}}
+.text-hide-md{@media(max-width:991px){display:none}}
+.text-hide-lg{@media(max-width:1199px){display:none}}
+.text-show-xs{@media(min-width:576px){display:none}}
+.text-show-sm{@media(min-width:768px){display:none}}
+.text-show-md{@media(min-width:992px){display:none}}
+.text-show-lg{@media(min-width:1200px){display:none}}
+
+// --------- 动画 ---------
+@keyframes text-fade-in{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.text-animate-fade{
+  animation:text-fade-in .6s cubic-bezier(.4,0,.2,1) forwards
+}
+
+// --------- 打印优化 ---------
+@media print{
+  .text-shadow{text-shadow:none}
+  .text-highlight-yellow{background:transparent;color:black}
+}
