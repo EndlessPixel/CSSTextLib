@@ -1,31 +1,16 @@
 @echo off
 setlocal enabledelayedexpansion
-
-:: 版本号文件夹（改这里就能复用）
-set "ver=2.0"
-
-:: sass 可执行文件路径（如已加入 PATH 可直接写 sass）
+set "ver=version\3.0"
 set "SASS_EXE=D:\Program Files\dart-sass\sass.bat"
-
-echo === Sass 开始编译 =========================================
-
-::  expanded
-"%SASS_EXE%" "%ver%\csstextlib.scss" "%ver%\csstextlib.css" --style=expanded
-if %errorlevel% equ 0 (
-  echo √  expanded  已生成：%ver%\csstextlib.css
-) else (
-  echo ×  expanded  失败！
-  pause & exit /b 1
-)
-
-::  compressed
-"%SASS_EXE%" "%ver%\csstextlib.scss" "%ver%\csstextlib.min.css" --style=compressed
-if %errorlevel% equ 0 (
-  echo √  compressed 已生成：%ver%\csstextlib.min.css
-) else (
-  echo ×  compressed 失败！
-  pause & exit /b 1
-)
-
-echo === 编译完成 ^(◕‿◕^) =======================================
+set "SCSS_FILENAME=csstextlib.scss"
+set "SCSS_FILE=%~dp0%ver%\%SCSS_FILENAME%"
+set "CSS_FILE=%~dp0%ver%\csstextlib.css"
+set "MIN_CSS_FILE=%~dp0%ver%\csstextlib.min.css"
+if not exist "%SASS_EXE%" (pause & exit /b 1)
+if not exist "%~dp0%ver%" (pause & exit /b 1)
+if not exist "%SCSS_FILE%" (pause & exit /b 1)
+call "%SASS_EXE%" "%SCSS_FILE%" "%CSS_FILE%" --style=expanded
+if !errorlevel! neq 0 (pause & exit /b 1)
+call "%SASS_EXE%" "%SCSS_FILE%" "%MIN_CSS_FILE%" --style=compressed
+if !errorlevel! neq 0 (pause & exit /b 1)
 pause
