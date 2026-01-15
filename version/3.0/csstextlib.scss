@@ -1,0 +1,647 @@
+$color-map: (
+    'red':#ff0000,
+    'light-red':#ff8888,
+    'deep-red':#880000,
+    'orange':#ff8800,
+    'yellow':#ffff00,
+    'light-yellow':#ffff88,
+    'deep-yellow':#888800,
+    'green':#00ff00,
+    'light-green':#90ee90,
+    'deep-green':#005000,
+    'blue':#0000ff,
+    'light-blue':#88ceff,
+    'deep-blue':#000080,
+    'purple':#800080,
+    'light-purple':#c370ff,
+    'deep-purple':#4b0082,
+    'pink':#ff88ff,
+    'deep-pink':#800080,
+    'gray':#808080,
+    'dark-gray':#333,
+    'light-gray':#ccc,
+    'black':#000,
+    'white':#fff
+);
+
+$font-sizes: (
+    'no':0,
+    'psmall':2px,
+    'minimal':4px,
+    'vsmall':8px,
+    'small':12px,
+    'medium':16px,
+    'large':20px,
+    'xlarge':24px,
+    'xxlarge':32px,
+    'xxxlarge':40px
+);
+
+$opacity-steps: 0 5 10 15 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100;
+
+$line-heights: (
+    'small':1,
+    'medium':1.5,
+    'large':2
+);
+$letter-spacing: (
+    'small':-0.5px,
+    'large':2px
+);
+$word-spacing: (
+    'small':-1px,
+    'large':4px
+);
+
+// 新增：字重映射（覆盖更多常用字重）
+$font-weights: (
+    'thin': 100,
+    'extralight': 200,
+    'light': 300,
+    'normal': 400,
+    'medium': 500,
+    'semibold': 600,
+    'bold': 700,
+    'extrabold': 800,
+    'black': 900
+);
+
+// 新增：文本阴影预设
+$text-shadows: (
+    'small': 1px 1px 2px rgba(0, 0, 0, .3),
+    'medium': 2px 2px 4px rgba(0, 0, 0, .5),
+    'large': 3px 3px 6px rgba(0, 0, 0, .7),
+    'glow-white': 0 0 8px rgba(255, 255, 255, .8),
+    'glow-black': 0 0 8px rgba(0, 0, 0, .8)
+);
+
+// --------- 原有循环生成样式（保留） ---------
+@each $name, $color in $color-map {
+    .text-color-#{$name} {
+        color: $color
+    }
+
+    .text-highlight-#{$name} {
+        background-color: $color;
+
+        @if $name==black {
+            color: white
+        }
+    }
+}
+
+@each $step in $opacity-steps {
+    .text-opacity-#{$step} {
+        opacity: $step*0.01
+    }
+}
+
+@each $key, $size in $font-sizes {
+    .text-size-#{$key} {
+        font-size: $size
+    }
+}
+
+@each $key, $h in $line-heights {
+    .text-line-height-#{$key} {
+        line-height: $h
+    }
+}
+
+@each $key, $val in $letter-spacing {
+    .text-letter-spacing-#{$key} {
+        letter-spacing: $val
+    }
+}
+
+@each $key, $val in $word-spacing {
+    .text-word-spacing-#{$key} {
+        word-spacing: $val
+    }
+}
+
+// --------- 新增：循环生成扩展样式 ---------
+// 1. 多档位字重
+@each $key, $weight in $font-weights {
+    .text-weight-#{$key} {
+        font-weight: $weight;
+    }
+}
+
+// 2. 预设文本阴影
+@each $key, $shadow in $text-shadows {
+    .text-shadow-#{$key} {
+        text-shadow: $shadow;
+    }
+}
+
+// --------- 原有一次性工具类（保留） ---------
+.text-bold {
+    font-weight: bold
+}
+
+.text-italic {
+    font-style: italic
+}
+
+.text-underline,
+.text-decoration-underline {
+    text-decoration: underline
+}
+
+.text-line-through,
+.text-strikethrough,
+.text-decoration-line-through {
+    text-decoration: line-through
+}
+
+.text-decoration-overline {
+    text-decoration: overline
+}
+
+.text-decoration-blink {
+    text-decoration: blink
+}
+
+.text-decoration-none {
+    text-decoration: none
+}
+
+.text-uppercase {
+    text-transform: uppercase
+}
+
+.text-lowercase {
+    text-transform: lowercase
+}
+
+.text-capitalize {
+    text-transform: capitalize
+}
+
+.text-align-left {
+    text-align: left
+}
+
+.text-align-center {
+    text-align: center
+}
+
+.text-align-right {
+    text-align: right
+}
+
+.text-align-justify {
+    text-align: justify
+}
+
+.text-align-justify-last-line {
+    text-align: justify;
+    text-align-last: justify
+}
+
+.text-align-top {
+    vertical-align: top
+}
+
+.text-align-middle {
+    vertical-align: middle
+}
+
+.text-align-bottom {
+    vertical-align: bottom
+}
+
+.text-break-word {
+    word-wrap: break-word
+}
+
+.text-direction-rtl {
+    direction: rtl
+}
+
+.text-direction-ltr {
+    direction: ltr
+}
+
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.text-indent-small {
+    text-indent: 1em
+}
+
+.text-indent-large {
+    text-indent: 2em
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .5)
+}
+
+.text-responsive {
+    font-size: clamp(12px, 1vw, 24px)
+}
+
+// --------- 新增：一次性工具类扩展 ---------
+// 1. 文本溢出增强（多行省略）
+.text-overflow-ellipsis-2 {
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-overflow-ellipsis-3 {
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-overflow-clip {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+// 2. 光标样式
+.text-cursor-pointer {
+    cursor: pointer;
+}
+
+.text-cursor-text {
+    cursor: text;
+}
+
+.text-cursor-default {
+    cursor: default;
+}
+
+.text-cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+// 3. 文本选择控制
+.text-select-none {
+    user-select: none;
+}
+
+.text-select-all {
+    user-select: all;
+}
+
+.text-select-text {
+    user-select: text;
+}
+
+// 4. 换行控制增强
+.text-nowrap {
+    white-space: nowrap;
+}
+
+.text-pre {
+    white-space: pre;
+}
+
+.text-pre-wrap {
+    white-space: pre-wrap;
+}
+
+.text-pre-line {
+    white-space: pre-line;
+}
+
+.text-break-all {
+    word-break: break-all;
+}
+
+// 5. 垂直对齐增强
+.text-align-baseline {
+    vertical-align: baseline;
+}
+
+.text-align-super {
+    vertical-align: super;
+}
+
+.text-align-sub {
+    vertical-align: sub;
+}
+
+.text-align-text-top {
+    vertical-align: text-top;
+}
+
+.text-align-text-bottom {
+    vertical-align: text-bottom;
+}
+
+// 6. 装饰线样式增强
+.text-underline-dashed {
+    text-decoration: underline dashed;
+}
+
+.text-underline-dotted {
+    text-decoration: underline dotted;
+}
+
+.text-underline-double {
+    text-decoration: underline double;
+}
+
+.text-underline-wavy {
+    text-decoration: underline wavy;
+}
+
+// 7. 行高特殊值
+.text-line-height-normal {
+    line-height: normal;
+}
+
+.text-line-height-inherit {
+    line-height: inherit;
+}
+
+.text-line-height-unset {
+    line-height: unset;
+}
+
+// 8. 交互效果
+.text-hover-color-black:hover {
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.text-hover-color-white:hover {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.text-hover-opacity-80:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.text-hover-bold:hover {
+    font-weight: bold;
+    transition: font-weight 0.2s ease;
+}
+
+// 9. 特殊排版
+.text-writing-mode-vertical {
+    writing-mode: vertical-rl;
+}
+
+.text-writing-mode-horizontal {
+    writing-mode: horizontal-tb;
+}
+
+.text-orientation-mixed {
+    text-orientation: mixed;
+}
+
+.text-orientation-upright {
+    text-orientation: upright;
+}
+
+// --------- 原有字体族（保留） ---------
+.text-font-serif {
+    font-family: serif
+}
+
+.text-font-sans-serif {
+    font-family: sans-serif
+}
+
+.text-font-monospace {
+    font-family: monospace
+}
+
+.text-font-system-ui {
+    font-family: system-ui
+}
+
+.text-font-ui-serif {
+    font-family: ui-serif
+}
+
+.text-font-ui-sans-serif {
+    font-family: ui-sans-serif
+}
+
+.text-font-ui-monospace {
+    font-family: ui-monospace
+}
+
+.text-font-ui-rounded {
+    font-family: ui-rounded
+}
+
+// --------- 新增：自定义字体族示例（可替换为项目实际字体） ---------
+.text-font-pingfang {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.text-font-helvetica {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.text-font-times {
+    font-family: "Times New Roman", Times, serif;
+}
+
+// --------- 原有暗色模式（保留并扩展） ---------
+@media (prefers-color-scheme:dark) {
+    :root {
+        --bg: #000;
+        --card: #1d1d1f;
+        --text: #f5f5f7;
+        --sub: #a1a1a6;
+        --border: #2c2c2e;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text)
+    }
+
+    .text-highlight-yellow {
+        background: #443300
+    }
+
+    .text-highlight-red {
+        background: #440000
+    }
+
+    // 新增：暗色模式下的文本样式优化
+    .text-highlight-green {
+        background: #004400;
+    }
+
+    .text-highlight-blue {
+        background: #000044;
+    }
+
+    .text-shadow {
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, .2);
+    }
+}
+
+// --------- 原有响应式隐藏/显示（保留） ---------
+.text-hide-xs {
+    @media(max-width:575px) {
+        display: none
+    }
+}
+
+.text-hide-sm {
+    @media(max-width:767px) {
+        display: none
+    }
+}
+
+.text-hide-md {
+    @media(max-width:991px) {
+        display: none
+    }
+}
+
+.text-hide-lg {
+    @media(max-width:1199px) {
+        display: none
+    }
+}
+
+.text-show-xs {
+    @media(min-width:576px) {
+        display: none
+    }
+}
+
+.text-show-sm {
+    @media(min-width:768px) {
+        display: none
+    }
+}
+
+.text-show-md {
+    @media(min-width:992px) {
+        display: none
+    }
+}
+
+.text-show-lg {
+    @media(min-width:1200px) {
+        display: none
+    }
+}
+
+// --------- 原有动画（保留并扩展） ---------
+@keyframes text-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+// 新增：文本渐隐动画
+@keyframes text-fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+// 新增：文本缩放动画
+@keyframes text-scale {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+// 新增：文本闪烁动画
+@keyframes text-blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.text-animate-fade {
+    animation: text-fade-in .6s cubic-bezier(.4, 0, .2, 1) forwards
+}
+
+// 新增动画类
+.text-animate-fade-out {
+    animation: text-fade-out 0.6s ease forwards;
+}
+
+.text-animate-scale {
+    animation: text-scale 1s ease-in-out infinite;
+}
+
+.text-animate-blink {
+    animation: text-blink 1s ease-in-out infinite;
+}
+
+// --------- 原有打印优化（保留并扩展） ---------
+@media print {
+    .text-shadow {
+        text-shadow: none
+    }
+
+    .text-highlight-yellow {
+        background: transparent;
+        color: black
+    }
+
+    // 新增：打印样式优化
+    .text-overflow-ellipsis {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .text-animate-fade,
+    .text-animate-scale,
+    .text-animate-blink {
+        animation: none;
+    }
+
+    .text-color-light-gray {
+        color: #333;
+    }
+
+    // 打印时提升浅灰色可读性
+}
