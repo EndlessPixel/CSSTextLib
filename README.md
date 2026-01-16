@@ -196,4 +196,4 @@ Eclipse Public License 2.0
 ## 📚 详细文档
 
 查看完整文档和示例：  
-[CSSTextLib 详细文档](https://endlesspixel.github.io/CSSTextLib/)
+[CSSTextLib 详细文档](https://endlesspixel.github.io/CSSTextLib/docs)
