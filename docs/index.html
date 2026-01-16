@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSSTextLib - 多功能CSS文本样式库</title>
+    <!-- 引入 CSSTextLib 3.0 用于文档样式 -->
+    <link rel="stylesheet" href="../version/3.0/csstextlib.min.css">
+    <style>
+        /* 自定义文档样式 */
+        :root {
+            --primary-color: #4a6ee0;
+            --secondary-color: #6c757d;
+            --accent-color: #8a2be2;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --border-color: #dee2e6;
+            --code-bg: #f5f5f5;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding-top: 60px;
+        }
+
+        /* 导航栏 */
+        #main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(74, 110, 224, 0.1);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-color);
+            background-color: rgba(74, 110, 224, 0.1);
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 标题和介绍 */
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #f5f7ff 0%, #eef1ff 100%);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .hero-description {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--secondary-color);
+        }
+
+        .version-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .badge-v1 {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .badge-v2 {
+            background-color: #dbe4ff;
+            color: var(--primary-color);
+        }
+
+        .badge-v3 {
+            background-color: #4a6ee0;
+            color: white;
+        }
+
+        /* 版本部分 */
+        .version-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .version-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .version-title {
+            font-size: 32px;
+            color: var(--primary-color);
+        }
+
+        /* 导入区域 */
+        .import-section {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .import-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .import-title i {
+            color: var(--accent-color);
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: #3a5ad0;
+        }
+
+        .copy-btn.copied {
+            background-color: #28a745;
+        }
+
+        /* 示例区域 */
+        .example-section {
+            margin-bottom: 30px;
+        }
+
+        .example-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--dark-bg);
+        }
+
+        .example-demo {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-code {
+            white-space: pre;
+            overflow-x: auto;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .example-code .tag {
+            color: #e06c75
+        }
+
+        .example-code .attr {
+            color: #d19a66
+        }
+
+        .example-code .val {
+            color: #50a14f
+        }
+
+        .example-code .com {
+            color: #999;
+            font-style: italic
+        }
+
+        /* 功能列表 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        /* 交互区域 */
+        .interactive-demo {
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .demo-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .demo-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .demo-btn:hover {
+            background-color: #3a5ad0;
+            transform: translateY(-2px);
+        }
+
+        .demo-text {
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            transition: var(--transition);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .version-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .demo-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .demo-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-color);
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: var(--dark-bg);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .github-link:hover {
+            background-color: #333;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--apple-white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin: 24px 0;
+        }
+
+        th {
+            background-color: var(--apple-gray-light);
+            font-weight: 600;
+            padding: 16px;
+            text-align: left;
+            font-size: 15px;
+            border-bottom: 1px solid var(--apple-border);
+        }
+
+        td {
+            padding: 16px;
+            font-size: 15px;
+            border-bottom: 1px solid var(--apple-border);
+            color: var(--apple-gray-dark);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--apple-white);
+            padding: 40px 0;
+            margin-top: 1px;
+            border-top: 1px solid var(--apple-border);
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: var(--apple-gray);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--apple-gray);
+        }
+
+        footer a:hover {
+            color: var(--apple-blue);
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="logo">CSSTextLib</div>
+            <div class="nav-links">
+                <a href="#overview" class="active">概述</a>
+                <a href="#version-1">1.0 版本</a>
+                <a href="#version-2">2.0 版本</a>
+                <a href="#version-3">3.0 版本</a>
+                <a href="#interactive-demo">交互演示</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <div class="container">
+        <!-- 概述部分 -->
+        <section id="overview" class="hero-section">
+            <h1 class="hero-title">CSSTextLib</h1>
+            <p class="hero-description">
+                一个功能强大的CSS文本样式库，提供丰富的文本样式类，帮助开发者快速实现各种文本效果。包含三个迭代版本，每个版本都在前一个基础上增加了新特性和改进。
+            </p>
+
+            <div class="version-badges">
+                <div class="badge badge-v1">1.0 - 基础版本</div>
+                <div class="badge badge-v2">2.0 - 增强版本</div>
+                <div class="badge badge-v3">3.0 - 完整版本</div>
+            </div>
+        </section>
+
+        <section class="version-section">
+            <div class="container">
+                <h2>版本特性对比</h2>
+                <p>CSSTextLib 历经三个版本迭代，功能逐步完善，以下是各版本核心特性对比：</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>功能分类</th>
+                            <th>v1.0</th>
+                            <th>v2.0</th>
+                            <th>v3.0</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>基础样式</strong></td>
+                            <td>✅ 颜色/字号/基础装饰</td>
+                            <td>✅ 完整支持（SCSS 重构）</td>
+                            <td>✅ 完整支持 + 扩展</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文本透明度</strong></td>
+                            <td>✅ 0-100 档位</td>
+                            <td>✅ 0-100 档位</td>
+                            <td>✅ 0-100 档位</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文本间距</strong></td>
+                            <td>✅ 字母/单词/行高</td>
+                            <td>✅ 字母/单词/行高</td>
+                            <td>✅ 字母/单词/行高 + 扩展</td>
+                        </tr>
+                        <tr>
+                            <td><strong>响应式控制</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>✅ xs/sm/md/lg 断点</td>
+                            <td>✅ xs/sm/md/lg 断点</td>
+                        </tr>
+                        <tr>
+                            <td><strong>暗色模式</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>✅ 基础系统适配</td>
+                            <td>✅ 扩展适配 + 样式优化</td>
+                        </tr>
+                        <tr>
+                            <td><strong>打印优化</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>✅ 基础优化</td>
+                            <td>✅ 完整优化（动画/省略号/颜色）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文本动画</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>✅ 淡入动画</td>
+                            <td>✅ 淡入/淡出/缩放/闪烁</td>
+                        </tr>
+                        <tr>
+                            <td><strong>字重系统</strong></td>
+                            <td>❌ 仅 bold</td>
+                            <td>❌ 仅 bold</td>
+                            <td>✅ 100-900 完整字重</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文本阴影</strong></td>
+                            <td>❌ 仅基础阴影</td>
+                            <td>❌ 仅基础阴影</td>
+                            <td>✅ 多尺寸/发光阴影预设</td>
+                        </tr>
+                        <tr>
+                            <td><strong>文本溢出</strong></td>
+                            <td>✅ 仅单行省略</td>
+                            <td>✅ 仅单行省略</td>
+                            <td>✅ 单行/2行/3行省略 + 裁剪</td>
+                        </tr>
+                        <tr>
+                            <td><strong>交互效果</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>❌ 不支持</td>
+                            <td>✅ Hover 颜色/透明度/字重</td>
+                        </tr>
+                        <tr>
+                            <td><strong>光标/选择控制</strong></td>
+                            <td>❌ 不支持</td>
+                            <td>❌ 不支持</td>
+                            <td>✅ 光标样式/文本选择控制</td>
+                        </tr>
+                        <tr>
+                            <td><strong>装饰线样式</strong></td>
+                            <td>✅ 基础下划线/删除线</td>
+                            <td>✅ 基础下划线/删除线</td>
+                            <td>✅ 虚线/点线/双线/波浪线</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>版本选择建议：</strong></p>
+                <ul>
+                    <li>新项目推荐使用 <strong>v3.0</strong>，功能最完整，体验最佳</li>
+                    <li>如需兼容旧项目可选择 <strong>v2.0</strong></li>
+                    <li>仅需基础文本样式可选择 <strong>v1.0</strong>（体积最小）</li>
+                </ul>
+        </section>
+
+        <!-- 版本1.0 -->
+        <section id="version-1" class="version-section">
+            <div class="version-header">
+                <h2 class="version-title">版本 1.0</h2>
+                <div class="badge badge-v1">基础文本样式</div>
+            </div>
+
+            <p>CSSTextLib 1.0 提供了基础的文本样式类，包括颜色、字体大小、字重、文本装饰等基本功能。</p>
+
+            <div class="import-section">
+                <h3 class="import-title">导入方式</h3>
+                <div class="code-block">
+                    <button class="copy-btn" data-clipboard-target="#import-v1">复制</button>
+                    <code
+                        id="import-v1">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/EndlessPixel/CSSTextLib/refs/heads/main/version/1.0/text.css"&gt;</code>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">使用示例</h3>
+
+                <div class="example-demo">
+                    <p class="text-color-red text-bold text-size-large">这是一个红色、粗体、大号文本</p>
+                    <p class="text-color-blue text-underline text-size-medium">这是一个蓝色、下划线、中号文本</p>
+                    <p class="text-color-green text-italic text-highlight-yellow">这是一个绿色、斜体、黄色高亮文本</p>
+                </div>
+
+                <div class="example-code">
+                    &lt;p class="text-color-red text-bold text-size-large"&gt;这是一个红色、粗体、大号文本&lt;/p&gt;
+                    &lt;p class="text-color-blue text-underline text-size-medium"&gt;这是一个蓝色、下划线、中号文本&lt;/p&gt;
+                    &lt;p class="text-color-green text-italic text-highlight-yellow"&gt;这是一个绿色、斜体、黄色高亮文本&lt;/p&gt;
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">主要功能</h3>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-title">文本颜色</div>
+                        <div>提供多种颜色类，如 .text-color-red, .text-color-blue 等</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">字体大小</div>
+                        <div>多种尺寸预设，从 .text-size-small 到 .text-size-xxxlarge</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">文本装饰</div>
+                        <div>粗体、斜体、下划线、删除线等样式</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">文本对齐</div>
+                        <div>左对齐、居中对齐、右对齐、两端对齐</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">高亮效果</div>
+                        <div>多种高亮背景颜色，如 .text-highlight-yellow</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">字体族</div>
+                        <div>衬线体、无衬线体、等宽字体等</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 版本2.0 -->
+        <section id="version-2" class="version-section">
+            <div class="version-header">
+                <h2 class="version-title">版本 2.0</h2>
+                <div class="badge badge-v2">SCSS增强版</div>
+            </div>
+
+            <p>CSSTextLib 2.0 使用SCSS重构，增加了响应式设计、暗色模式支持、动画效果和打印优化等高级功能。</p>
+
+            <div class="import-section">
+                <h3 class="import-title">导入方式</h3>
+                <div class="code-block">
+                    <button class="copy-btn" data-clipboard-target="#import-v2-css">复制</button>
+                    <code
+                        id="import-v2-css">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/EndlessPixel/CSSTextLib/refs/heads/main/version/2.0/csstextlib.css"&gt;</code>
+                </div>
+                <p>或使用压缩版本：</p>
+                <div class="code-block">
+                    <button class="copy-btn" data-clipboard-target="#import-v2-min">复制</button>
+                    <code
+                        id="import-v2-min">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/EndlessPixel/CSSTextLib/refs/heads/main/version/2.0/csstextlib.min.css"&gt;</code>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">新增功能示例</h3>
+
+                <div class="example-demo">
+                    <p class="text-responsive text-color-purple">这是一个响应式文本（调整窗口大小查看效果）</p>
+                    <p class="text-animate-fade text-color-orange">这是一个淡入动画文本</p>
+                    <p class="text-shadow text-color-deep-blue">这是一个带阴影的文本</p>
+                    <div class="text-hide-sm" style="padding: 10px; background-color: #f0f0f0; border-radius: 4px;">
+                        这个元素在小于768px的屏幕上会隐藏（调整窗口大小查看效果）
+                    </div>
+                </div>
+
+                <div class="example-code">
+                    &lt;!-- 响应式文本 --&gt;
+                    &lt;p class="text-responsive text-color-purple"&gt;这是一个响应式文本&lt;/p&gt;
+
+                    &lt;!-- 动画文本 --&gt;
+                    &lt;p class="text-animate-fade text-color-orange"&gt;这是一个淡入动画文本&lt;/p&gt;
+
+                    &lt;!-- 带阴影文本 --&gt;
+                    &lt;p class="text-shadow text-color-deep-blue"&gt;这是一个带阴影的文本&lt;/p&gt;
+
+                    &lt;!-- 响应式隐藏 --&gt;
+                    &lt;div class="text-hide-sm"&gt;
+                    这个元素在小于768px的屏幕上会隐藏
+                    &lt;/div&gt;
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">新增特性</h3>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-title">响应式设计</div>
+                        <div>响应式文本大小和显示/隐藏类</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">暗色模式</div>
+                        <div>自动适配系统暗色模式</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">动画效果</div>
+                        <div>淡入动画 .text-animate-fade</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">打印优化</div>
+                        <div>优化打印时的文本显示效果</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">SCSS变量</div>
+                        <div>使用SCSS变量方便自定义</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">间距控制</div>
+                        <div>字母间距、单词间距控制类</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 版本3.0 -->
+        <section id="version-3" class="version-section">
+            <div class="version-header">
+                <h2 class="version-title">版本 3.0</h2>
+                <div class="badge badge-v3">完整功能版</div>
+            </div>
+
+            <p>CSSTextLib 3.0 是最完整的版本，增加了多档位字重、多种文本阴影、多行文本省略、光标样式、交互效果等大量新功能。</p>
+
+            <div class="import-section">
+                <h3 class="import-title">导入方式</h3>
+                <div class="code-block">
+                    <button class="copy-btn" data-clipboard-target="#import-v3-css">复制</button>
+                    <code
+                        id="import-v3-css">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/EndlessPixel/CSSTextLib/refs/heads/main/version/3.0/csstextlib.css"&gt;</code>
+                </div>
+                <p>或使用压缩版本：</p>
+                <div class="code-block">
+                    <button class="copy-btn" data-clipboard-target="#import-v3-min">复制</button>
+                    <code
+                        id="import-v3-min">&lt;link rel="stylesheet" href="https://raw.githubusercontent.com/EndlessPixel/CSSTextLib/refs/heads/main/version/3.0/csstextlib.min.css"&gt;</code>
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">新增功能示例</h3>
+
+                <div class="example-demo">
+                    <p class="text-weight-black text-color-deep-red">超粗体字重示例</p>
+                    <p class="text-shadow-medium text-color-purple">中等阴影文本</p>
+                    <p class="text-overflow-ellipsis-2" style="width: 300px;">
+                        这是一个多行文本省略示例，当文本超过两行时会显示省略号。这是一个多行文本省略示例，当文本超过两行时会显示省略号。
+                    </p>
+                    <p class="text-cursor-pointer text-color-blue text-hover-bold">鼠标悬停时变粗体（尝试悬停）</p>
+                    <p class="text-decoration-underline-wavy text-color-green">波浪下划线文本</p>
+                </div>
+
+                <div class="example-code">
+                    &lt;!-- 多档位字重 --&gt;
+                    &lt;p class="text-weight-black text-color-deep-red"&gt;超粗体字重示例&lt;/p&gt;
+
+                    &lt;!-- 多种阴影 --&gt;
+                    &lt;p class="text-shadow-medium text-color-purple"&gt;中等阴影文本&lt;/p&gt;
+
+                    &lt;!-- 多行省略 --&gt;
+                    &lt;p class="text-overflow-ellipsis-2" style="width: 300px;"&gt;
+                    这是一个多行文本省略示例...
+                    &lt;/p&gt;
+
+                    &lt;!-- 悬停效果 --&gt;
+                    &lt;p class="text-cursor-pointer text-color-blue text-hover-bold"&gt;
+                    鼠标悬停时变粗体
+                    &lt;/p&gt;
+
+                    &lt;!-- 装饰线样式 --&gt;
+                    &lt;p class="text-decoration-underline-wavy text-color-green"&gt;
+                    波浪下划线文本
+                    &lt;/p&gt;
+                </div>
+            </div>
+
+            <div class="example-section">
+                <h3 class="example-title">新增特性</h3>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-title">多档位字重</div>
+                        <div>从 thin(100) 到 black(900) 的9种字重</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">文本阴影预设</div>
+                        <div>small, medium, large 及发光效果</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">多行文本省略</div>
+                        <div>2行、3行文本省略显示</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">光标样式</div>
+                        <div>pointer, text, not-allowed 等</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">交互效果</div>
+                        <div>悬停变色、变粗、透明度变化</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">装饰线样式</div>
+                        <div>虚线、点线、双线、波浪线</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">文本选择控制</div>
+                        <div>控制用户能否选择文本</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">垂直对齐增强</div>
+                        <div>baseline, super, sub 等对齐方式</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">动画扩展</div>
+                        <div>淡出、缩放、闪烁动画</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-title">自定义字体</div>
+                        <div>预设了常用中英文字体族</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 交互演示区域 -->
+        <section id="interactive-demo" class="interactive-demo">
+            <h2 class="demo-title">交互演示</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--secondary-color);">
+                点击下方按钮，实时查看 CSSTextLib 3.0 的各种文本效果
+            </p>
+
+            <div class="demo-controls">
+                <button class="demo-btn" data-effect="color">切换颜色</button>
+                <button class="demo-btn" data-effect="size">切换大小</button>
+                <button class="demo-btn" data-effect="weight">切换字重</button>
+                <button class="demo-btn" data-effect="shadow">切换阴影</button>
+                <button class="demo-btn" data-effect="highlight">切换高亮</button>
+                <button class="demo-btn" data-effect="animation">切换动画</button>
+                <button class="demo-btn" data-effect="decoration">切换装饰</button>
+                <button class="demo-btn" data-effect="reset">重置效果</button>
+            </div>
+
+            <div id="demo-text" class="demo-text">
+                这是一个交互演示文本，点击上方按钮查看不同效果。
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <p id="current-classes" style="font-family: monospace; font-size: 14px; color: var(--secondary-color);">
+                    当前应用类：无
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 EndlessPixel Studio BY system_mini - CSSTextLib</p>
+        <a href="https://github.com/EndlessPixel/CSSTextLib" class="github-link" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+            访问 GitHub 仓库
+        </a>
+    </footer>
+
+    <script>
+        // 平滑滚动导航
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // 更新活动链接
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+
+                // 滚动到目标部分
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // 复制代码功能
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-clipboard-target');
+                const codeElement = document.querySelector(targetId);
+
+                if (codeElement) {
+                    const textToCopy = codeElement.textContent;
+
+                    // 使用现代 Clipboard API
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        // 显示复制成功反馈
+                        const originalText = this.textContent;
+                        this.textContent = '已复制!';
+                        this.classList.add('copied');
+
+                        // 2秒后恢复原状
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.classList.remove('copied');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                        alert('复制失败，请手动复制代码');
+                    });
+                }
+            });
+        });
+
+        // 交互演示功能
+        const demoText = document.getElementById('demo-text');
+        const currentClassesDisplay = document.getElementById('current-classes');
+
+        // 效果选项
+        const effects = {
+            color: [
+                'text-color-red',
+                'text-color-blue',
+                'text-color-green',
+                'text-color-purple',
+                'text-color-orange',
+                'text-color-deep-pink'
+            ],
+            size: [
+                'text-size-small',
+                'text-size-medium',
+                'text-size-large',
+                'text-size-xlarge',
+                'text-size-xxlarge'
+            ],
+            weight: [
+                'text-weight-light',
+                'text-weight-normal',
+                'text-weight-medium',
+                'text-weight-semibold',
+                'text-weight-bold',
+                'text-weight-black'
+            ],
+            shadow: [
+                '',
+                'text-shadow-small',
+                'text-shadow-medium',
+                'text-shadow-large',
+                'text-shadow-glow-white'
+            ],
+            highlight: [
+                '',
+                'text-highlight-yellow',
+                'text-highlight-blue',
+                'text-highlight-green',
+                'text-highlight-purple',
+                'text-highlight-orange'
+            ],
+            animation: [
+                '',
+                'text-animate-fade',
+                'text-animate-scale',
+                'text-animate-blink'
+            ],
+            decoration: [
+                '',
+                'text-underline',
+                'text-italic',
+                'text-line-through',
+                'text-decoration-underline-wavy',
+                'text-uppercase'
+            ]
+        };
+
+        // 当前效果索引
+        let currentEffectIndices = {
+            color: 0,
+            size: 2, // 默认 medium
+            weight: 1, // 默认 normal
+            shadow: 0,
+            highlight: 0,
+            animation: 0,
+            decoration: 0
+        };
+
+        // 更新演示文本
+        function updateDemoText() {
+            // 移除所有可能的效果类
+            Object.values(effects).forEach(effectClasses => {
+                effectClasses.forEach(className => {
+                    if (className) demoText.classList.remove(className);
+                });
+            });
+
+            // 添加当前效果类
+            Object.keys(currentEffectIndices).forEach(effectType => {
+                const index = currentEffectIndices[effectType];
+                const className = effects[effectType][index];
+                if (className) demoText.classList.add(className);
+            });
+
+            // 更新显示的类名
+            const appliedClasses = Array.from(demoText.classList)
+                .filter(className => className.startsWith('text-'))
+                .join(' ');
+
+            currentClassesDisplay.textContent = `当前应用类：${appliedClasses || '无'}`;
+        }
+
+        // 按钮事件处理
+        document.querySelectorAll('.demo-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const effect = this.getAttribute('data-effect');
+
+                if (effect === 'reset') {
+                    // 重置所有效果
+                    Object.keys(currentEffectIndices).forEach(key => {
+                        if (key === 'size') currentEffectIndices[key] = 2; // medium
+                        else if (key === 'weight') currentEffectIndices[key] = 1; // normal
+                        else currentEffectIndices[key] = 0;
+                    });
+                } else if (effects[effect]) {
+                    // 切换到下一个效果
+                    currentEffectIndices[effect] =
+                        (currentEffectIndices[effect] + 1) % effects[effect].length;
+                }
+
+                updateDemoText();
+
+                // 如果是动画效果，需要重新触发动画
+                if (effect === 'animation') {
+                    demoText.style.animation = 'none';
+                    setTimeout(() => {
+                        demoText.style.animation = '';
+                    }, 10);
+                }
+            });
+        });
+
+        // 初始化演示文本
+        updateDemoText();
+
+        // 监听滚动，更新活动导航链接
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.version-section, .hero-section, .interactive-demo');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            let currentSectionId = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSectionId = '#' + section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSectionId) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
