@@ -85,7 +85,7 @@ Atomic CSS文本工具库 - 600+单一用途类，让您在几秒内完成文本
 ## 🛠 自行构建
 
 ### 方法一：使用Sass编译
-```bash
+```
 # 安装dart-sass（只需一次）
 npm install -g sass
 
@@ -135,28 +135,28 @@ $font-weights: (
 ## 🚀 高级用法示例
 
 ### 多行文本省略
-```html
+```
 <p class="text-overflow-ellipsis-2" style="width: 300px;">
   这是两行文本省略示例，当文本超过两行时显示省略号...
 </p>
 ```
 
 ### 交互效果
-```html
+```
 <p class="text-color-blue text-hover-bold text-cursor-pointer">
   悬停时变粗体（尝试悬停）
 </p>
 ```
 
 ### 特殊排版
-```html
+```
 <p class="text-writing-mode-vertical text-color-purple">
   垂直排版的文本
 </p>
 ```
 
 ### 动画文本
-```html
+```
 <p class="text-animate-fade text-color-orange">
   淡入动画文本
 </p>
